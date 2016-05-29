@@ -1,0 +1,9 @@
+<h1> Emails </h1>
+
+<ul id='emails'>
+  <% @emails.each do |email| %>
+    <li>
+      Address: <%= email.address %>
+    </li>
+  <% end %>
+</ul>

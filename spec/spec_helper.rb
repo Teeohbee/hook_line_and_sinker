@@ -3,6 +3,7 @@
 ENV['RACK_ENV'] = 'test'
 
 require File.join(File.dirname(__FILE__), '..', 'lib/hook_line_and_sinker.rb')
+require './lib/models/email'
 
 require 'capybara'
 require 'capybara/rspec'
