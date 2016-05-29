@@ -3,6 +3,8 @@ require 'tilt/erb'
 require_relative 'models/email'
 require 'pry'
 
+ENV['RACK_ENV'] ||= 'development'
+
 class HookLineAndSinker < Sinatra::Base
   get '/' do
     'Hello HookLineAndSinker!'

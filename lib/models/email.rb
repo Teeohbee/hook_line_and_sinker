@@ -12,6 +12,6 @@ class Email
 
 end
 
-DataMapper.setup(:default, "postgres://localhost/hls_test")
+DataMapper.setup(:default, "postgres://localhost/hls_#{ENV['RACK_ENV']}")
 DataMapper.finalize
 DataMapper.auto_upgrade!
