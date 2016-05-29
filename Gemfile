@@ -1,5 +1,11 @@
 
 source "https://rubygems.org"
 
-gem 'rspec'
-gem 'capybara'
+gem 'sinatra'
+
+group :development, :test do
+  gem 'capybara'
+  gem 'launchy'
+  gem 'rspec'
+  gem 'rspec-sinatra'
+end
