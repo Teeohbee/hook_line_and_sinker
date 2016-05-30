@@ -20,7 +20,7 @@ class HookLineAndSinker < Sinatra::Base
     @data = JSON.parse(request.body.read || '{}')
     if @data.nil?
       status 400
-      body({ :error => "No Data Provided" }.to_json)
+      body "No Data Provided".to_json
     else
       @email = Email.new  timestamp: @data['Timestamp'],
                           address: @data['Address'],
@@ -28,7 +28,7 @@ class HookLineAndSinker < Sinatra::Base
                           event: @data['Event']
       @email.save
       status 200
-      body({ :error => "Webhook Data Parsed" }.to_json)
+      body "Webhook Data Parsed".to_json
     end
   end
 
