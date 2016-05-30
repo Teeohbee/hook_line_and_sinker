@@ -1,9 +1,23 @@
 <h1> Emails </h1>
 
-<ul id='emails'>
+<table border="1">
+  <tr>
+    <td>Timestamp</td>
+    <td>Address</td>
+    <td>EmailType</td>
+    <td>Event</td>
+  </tr>
   <% @emails.each do |email| %>
-    <li>
-      Address: <%= email.address %>
-    </li>
+    <tr>
+      <td>
+        <%=
+        d = DateTime.strptime(email.timestamp.to_s,'%s')
+        d.strftime("%m/%d/%Y")
+        %>
+      </td>
+      <td><%= email.address %></td>
+      <td><%= email.emailtype %></td>
+      <td><%= email.event %></td>
+    </tr>
   <% end %>
-</ul>
+</table>

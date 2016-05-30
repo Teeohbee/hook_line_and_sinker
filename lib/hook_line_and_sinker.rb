@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'tilt/erb'
+require 'date'
 require_relative '../data_mapper_setup.rb'
 
 require 'pry'
@@ -8,6 +9,10 @@ require 'json'
 class HookLineAndSinker < Sinatra::Base
 
   get '/' do
+    @sent_emails_count = Email.count(:event => "send")
+    @clicked_emails_count = Email.count(:event => "click")
+    @opened_emails_count = Email.count(:event => "open")
+    status 200
     erb :'index'
   end
 
