@@ -16,7 +16,7 @@ HLS is a small sinatra web app that consumes incoming webhooks from a Mandrillo-
 * Chose a sinatra application as I wanted to keep the app as small and lean as possible.
 * Modeled my Email DB model on the incoming JSON object.
 * Postgres and Datamapper were used as a database and ORM respectively due to prior experience with them.
-* Front-end work was very minimal, definite potential for extension.
+* Front-end work was very minimal, provides the bones of a dashboard and email list
 
 ## Challenges
 * Testing webhooks was problematic. Firing HTTParty post requests as part of a test suite resulted in entries arriving in the development database rather than test. Ideally I would have liked to test that:
@@ -27,7 +27,7 @@ HLS is a small sinatra web app that consumes incoming webhooks from a Mandrillo-
 ## App Extension
 
 A lot of scope for interesting development of the app.
-* A front-end dashboard to display key email metrics for marketing types!
+* A proper front-end dashboard, built in something like react, to display key email metrics for marketing types!
 * Searchable email list page and GUI to check the status of specific emails/users etc.
 * Additional models for user, adding relationships so that emails belong to a certain user to allow more complex querying.
 
@@ -36,3 +36,4 @@ A lot of scope for interesting development of the app.
 * Calculate the open rate and click rate per email type
 * Learn how to properly test that an incoming webhook request is processed properly
 * Add data validations to the Email model so as to avoid corrupt/incorrect data
+* Add tests and increase test coverage!
