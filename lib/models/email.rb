@@ -1,17 +1,10 @@
-require 'data_mapper'
-require 'dm-postgres-adapter'
-
 class Email
   include DataMapper::Resource
 
-  property :id,          Serial
-  property :timestamp,   Integer
-  property :address,     String
-  property :emailtype,   String
-  property :event,       String
+  property :id, Serial, required: true
+  property :timestamp, Integer, required: true
+  property :address, String, required: true
+  property :emailtype, String, required: true
+  property :event, String, required: true
 
 end
-
-DataMapper.setup(:default, "postgres://localhost/hls_#{ENV['RACK_ENV']}")
-DataMapper.finalize
-DataMapper.auto_upgrade!

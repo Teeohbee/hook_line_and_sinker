@@ -1,0 +1,13 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+'Hello HookLineAndSinker!'
+
+<div id="PostMe">TestPost</div>
+
+<script>
+$( "#PostMe" ).click(function() {
+  alert( "Handler for .click() called." );
+  var data = JSON.stringify({"Address":"barney@lostmy.name","EmailType":"Shipment","Event":"send","Timestamp":1432820696});
+  $.post('/', data);
+});
+</script>

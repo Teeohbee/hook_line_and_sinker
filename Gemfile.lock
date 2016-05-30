@@ -66,6 +66,9 @@ GEM
     extlib (0.9.16)
     fastercsv (1.5.5)
     highline (1.7.8)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     json (1.8.3)
     json_pure (1.8.3)
     launchy (2.4.3)
@@ -76,6 +79,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.0.0)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pry (0.10.3)
@@ -125,6 +129,7 @@ DEPENDENCIES
   data_mapper
   database_cleaner
   dm-postgres-adapter
+  httparty
   launchy
   pry
   rspec
