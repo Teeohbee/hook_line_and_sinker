@@ -32,7 +32,7 @@ A lot of scope for interesting development of the app.
 * Searchable email list page and GUI to check the status of specific emails/users etc.
 * Additional models for user, adding relationships so that emails belong to a certain user to allow more complex querying
 
-# Still To-Do
+## Still To-Do
 
 * Calculate the open rate and click rate per email type
 * Learn how to properly test that an incoming webhook request is processed properly
