@@ -9,7 +9,11 @@ require 'json'
 class HookLineAndSinker < Sinatra::Base
 
   get '/api/emails' do
-    @emails = Email.all.to_json
+    if params
+      Email.all(params).to_json
+    else
+      Email.all.to_json
+    end
   end
 
   post '/' do

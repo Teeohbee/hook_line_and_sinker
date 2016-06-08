@@ -6,6 +6,8 @@ require 'spec_helper'
 
   def create_dummy_data
     Email.create(timestamp: 1432820696, address: "barney@lostmy.name", emailtype: "Shipment", event: "send")
+    Email.create(timestamp: 1432820702, address: "tom@lostmy.name", emailtype: "UserConfirmation", event: "click")
+    Email.create(timestamp: 1432820704, address: "vitor@lostmy.name", emailtype: "Shipment", event: "open")
   end
 
   describe 'Posting webhooks to the / route' do
@@ -42,13 +44,23 @@ require 'spec_helper'
   end
 
   describe 'Getting from the /api/emails route' do
-    expected_json = [ {"id"=>4, "timestamp"=>1432820696, "address"=>"barney@lostmy.name", "emailtype"=>"Shipment", "event"=>"send"},
-                      {"id"=>5, "timestamp"=>1432820696, "address"=>"barney@lostmy.name", "emailtype"=>"Shipment", "event"=>"send"},
-                      {"id"=>6, "timestamp"=>1432820696, "address"=>"barney@lostmy.name", "emailtype"=>"Shipment", "event"=>"send"} ].to_json
 
     it 'returns all emails when given no parameters or query' do
-      3.times { create_dummy_data }
+      expected_json = [ {"id"=>4, "timestamp"=>1432820696, "address"=>"barney@lostmy.name", "emailtype"=>"Shipment", "event"=>"send"},
+                        {"id"=>5, "timestamp"=>1432820702, "address"=>"tom@lostmy.name", "emailtype"=>"UserConfirmation", "event"=>"click"},
+                        {"id"=>6, "timestamp"=>1432820704, "address"=>"vitor@lostmy.name", "emailtype"=>"Shipment", "event"=>"open"} ].to_json
+
+      create_dummy_data
       get '/api/emails'
+      expect(last_response.status).to eql(200)
+      expect(last_response.body).to eql(expected_json)
+    end
+
+    it 'returns specific emails when given a valid query' do
+      expected_json = [ {"id"=>7, "timestamp"=>1432820696, "address"=>"barney@lostmy.name", "emailtype"=>"Shipment", "event"=>"send"} ].to_json
+
+      create_dummy_data
+      get '/api/emails?address=barney@lostmy.name'
       expect(last_response.status).to eql(200)
       expect(last_response.body).to eql(expected_json)
     end
