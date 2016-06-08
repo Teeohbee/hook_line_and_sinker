@@ -17,10 +17,10 @@ class HookLineAndSinker < Sinatra::Base
   end
 
   post '/' do
-    @data = JSON.parse(request.body.read || '{}')
+    @data = JSON.parse(request.body.read) rescue nil
     if @data.nil?
       status 400
-      body "No Data Provided".to_json
+      body "No Data Provided"
     else
       @email = Email.new  timestamp: @data['Timestamp'],
                           address: @data['Address'],

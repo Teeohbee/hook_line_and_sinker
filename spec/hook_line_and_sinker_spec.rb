@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'json'
 
   describe 'Posting to the / route' do
     good_email = {"Address":"barney@lostmy.name","EmailType":"Shipment","Event":"send","Timestamp":1432820696}.to_json
@@ -15,6 +14,12 @@ require 'json'
       post_json('/', bad_email)
       expect(last_response.status).to eql(400)
       expect(last_response.body.to_s).to eql('Data failed validations')
+    end
+
+    it 'returns a failing status code and message when no data is provided' do
+      post_json('/', {})
+      expect(last_response.status).to eql(400)
+      expect(last_response.body.to_s).to eql('No Data Provided')
     end
 
     it 'adds a record to the email database when successful' do
