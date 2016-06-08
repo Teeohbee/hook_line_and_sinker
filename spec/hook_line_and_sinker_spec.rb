@@ -1,25 +1,33 @@
 require 'spec_helper'
 
-  describe 'Posting to the / route' do
+  def post_json(uri, json)
+    post(uri, json, { "CONTENT_TYPE" => "application/json" })
+  end
+
+  def create_dummy_data
+    Email.create(timestamp: 1432820696, address: "barney@lostmy.name", emailtype: "Shipment", event: "send")
+  end
+
+  describe 'Posting webhooks to the / route' do
     good_email = {"Address":"barney@lostmy.name","EmailType":"Shipment","Event":"send","Timestamp":1432820696}.to_json
     bad_email = {"Address":"barney@lostmy.name","EmailType":12345,"Event":"send","Timestamp":"This should be an int"}.to_json
 
     it 'returns a successful status code and message when fields are valid' do
       post_json('/', good_email)
       expect(last_response.status).to eql(200)
-      expect(last_response.body.to_s).to eql('Webhook Data Parsed')
+      expect(last_response.body).to eql('Webhook Data Parsed')
     end
 
     it 'returns a failing status code and message when fields are invalid or missing' do
       post_json('/', bad_email)
       expect(last_response.status).to eql(400)
-      expect(last_response.body.to_s).to eql('Data failed validations')
+      expect(last_response.body).to eql('Data failed validations')
     end
 
     it 'returns a failing status code and message when no data is provided' do
       post_json('/', {})
       expect(last_response.status).to eql(400)
-      expect(last_response.body.to_s).to eql('No Data Provided')
+      expect(last_response.body).to eql('No Data Provided')
     end
 
     it 'adds a record to the email database when successful' do
@@ -33,6 +41,15 @@ require 'spec_helper'
     end
   end
 
-  def post_json(uri, json)
-    post(uri, json, { "CONTENT_TYPE" => "application/json" })
+  describe 'Getting from the /api/emails route' do
+    expected_json = [ {"id"=>4, "timestamp"=>1432820696, "address"=>"barney@lostmy.name", "emailtype"=>"Shipment", "event"=>"send"},
+                      {"id"=>5, "timestamp"=>1432820696, "address"=>"barney@lostmy.name", "emailtype"=>"Shipment", "event"=>"send"},
+                      {"id"=>6, "timestamp"=>1432820696, "address"=>"barney@lostmy.name", "emailtype"=>"Shipment", "event"=>"send"} ].to_json
+
+    it 'returns all emails when given no parameters or query' do
+      3.times { create_dummy_data }
+      get '/api/emails'
+      expect(last_response.status).to eql(200)
+      expect(last_response.body).to eql(expected_json)
+    end
   end

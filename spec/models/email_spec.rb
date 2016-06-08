@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-{"Address":"barney@lostmy.name","EmailType":"Shipment","Event":"send","Timestamp":1432820696}
-
 describe 'Email' do
   it 'should add record to database' do
     email = Email.new   timestamp: 1432820696,

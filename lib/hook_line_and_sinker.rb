@@ -8,12 +8,8 @@ require 'json'
 
 class HookLineAndSinker < Sinatra::Base
 
-  get '/' do
-    @sent_emails_count = Email.count(:event => "send")
-    @clicked_emails_count = Email.count(:event => "click")
-    @opened_emails_count = Email.count(:event => "open")
-    status 200
-    erb :'index'
+  get '/api/emails' do
+    @emails = Email.all.to_json
   end
 
   post '/' do
@@ -34,11 +30,6 @@ class HookLineAndSinker < Sinatra::Base
         body "Data failed validations"
       end
     end
-  end
-
-  get '/emails' do
-    @emails = Email.all
-    erb :'emails/email_list'
   end
 
   run! if app_file == $PROGRAM_NAME
