@@ -2,6 +2,12 @@
 
 HLS is a small sinatra web app that consumes incoming webhooks from a Mandrillo-like service and processes them before storing them in an easy to use format in a local postgres Database.
 
+## Update 08/06/16
+I've made a few changes since I last updated this README and project, mostly based on my initial thoughts and to-do list detailed below. The latest updates can be found on the branch `converting-to-api`. The key changes are:
+* I've stripped out all views and related tests from the app in order to provide a more streamlined API, able to plug into any front end. This will eventually be merged into master.
+* I finally got tests working for the routing of webhooks! It involved enabling and including Rack Test Methods to allow post and get requests directly from the rspec test steps. This resolved the issues I was having with the database.
+* I added more generic API routes for the retrieval of Emails and Emails by parameter.
+
 ## Setup
 
 1. Clone this repo
@@ -39,7 +45,7 @@ A lot of scope for interesting development of the app.
 ## Still To-Do
 
 * Calculate the open rate and click rate per email type
-* Learn how to properly test that an incoming webhook request is processed properly
-* Add data validations to the Email model so as to avoid corrupt/incorrect data
+* ~~Learn how to properly test that an incoming webhook request is processed properly~~
+* ~~Add data validations to the Email model so as to avoid corrupt/incorrect data~~
 * Add more tests and increase test coverage!
 * Get it up on Heroku
