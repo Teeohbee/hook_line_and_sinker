@@ -23,11 +23,15 @@ HLS is a small sinatra web app that consumes incoming webhooks from a Mandrillo-
 * Testing webhooks was problematic. Firing HTTParty post requests as part of a test suite resulted in entries arriving in the development database rather than test. Ideally I would have liked to test that:
     * Post requests return a successful status code
     * Post requests increase the number of emails in the database by 1
+    * Pulling out the last created entry in the database matches the data in the latest Post request.
 * While consuming and storing the incoming webhooks was fairly straightforward, the subsequent use and display of that data was challenging and needs further work.
 
 ## App Extension
 
 A lot of scope for interesting development of the app.
+* Ultimately I'd like to turn the sinatra app into simply a web hook processor and restful API.
+   * The API would be responsible for processing incoming webhooks into the database and then providing READ endpoints for calculated key metrics - open rate, click rate etc.
+   * This could then be front-end tech agnostic and potentially polled by multiple other services.
 * A proper front-end dashboard, possibly built with React using D3 to display key email metrics for marketing types!
 * Searchable email list page and GUI to check the status of specific emails/users etc.
 * Additional models for user, adding relationships so that emails belong to a certain user to allow more complex querying
