@@ -28,10 +28,10 @@ class HookLineAndSinker < Sinatra::Base
                           event: @data['Event']
       if @email.save
         status 200
-        body "Webhook Data Parsed".to_json
+        body "Webhook Data Parsed"
       else
         status 400
-        body "Data failed validations".to_json
+        body "Data failed validations"
       end
     end
   end

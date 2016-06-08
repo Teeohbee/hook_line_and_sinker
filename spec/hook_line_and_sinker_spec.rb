@@ -1,18 +1,16 @@
 require 'spec_helper'
+require 'json'
 
   describe 'Posting to the / route' do
-    xit 'creates DB entries for incoming emails' do
+    it 'creates DB entries for incoming emails' do
       email = {"Address":"barney@lostmy.name","EmailType":"Shipment","Event":"send","Timestamp":1432820696}
-      post "/", :body => email.to_json
-      expect(response.body).to eql('1')
+      json = email.to_json
+      post_json('/', json)
+      expect(last_response.status).to eql(200)
+      expect(last_response.body.to_s).to eql('Webhook Data Parsed')
     end
   end
 
-  describe 'Viewing email list' do
-    xit 'I can see existing links on the links page' do
-      Email.create(address: "barney@lostmy.name", emailtype: "Shipment", event: "send", timestamp: 1432820696)
-      visit '/emails'
-      expect(page.status_code).to eq 200
-      expect(page).to have_content("barney@lostmy.name")
-    end
+  def post_json(uri, json)
+    post(uri, json, { "CONTENT_TYPE" => "application/json" })
   end

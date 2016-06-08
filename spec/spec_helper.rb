@@ -6,10 +6,17 @@ require 'capybara'
 require 'capybara/rspec'
 require 'database_cleaner'
 require 'rspec'
+require 'rack/test'
+
+def app
+  @app=HookLineAndSinker
+  #Sinatra::Application
+end
 
 Capybara.app = HookLineAndSinker
 
 RSpec.configure do |config|
+  config.include Rack::Test::Methods
 
   config.include Capybara::DSL
 
