@@ -12,6 +12,8 @@ class StatCalculator
     build_json(@totals_by_event, @opened_per_type, @clicked_per_type)
   end
 
+private
+
   def build_json(events, opened, clicked)
     {
       totals: events,

@@ -17,6 +17,11 @@ class HookLineAndSinker < Sinatra::Base
     end
   end
 
+  get '/api/statistics' do
+    calculator = StatCalculator.new
+    calculator.calculate.to_json
+  end
+
   post '/' do
     @data = JSON.parse(request.body.read) rescue nil
     if @data.nil?

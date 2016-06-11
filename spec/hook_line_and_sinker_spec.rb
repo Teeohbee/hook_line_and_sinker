@@ -65,3 +65,15 @@ require 'spec_helper'
       expect(last_response.body).to eql(expected_json)
     end
   end
+
+  describe 'Getting from the /api/statistics route' do
+
+    it 'returns all statistics as a JSON object' do
+      expected_json = {:totals=>{:send=>1, :click=>1, :open=>1}, :opened_per_type=>{:shipment=>1}, :clicked_per_type=>{:userconfirmation=>1}}.to_json
+
+      create_dummy_data
+      get '/api/statistics'
+      expect(last_response.status).to eql(200)
+      expect(last_response.body).to eql(expected_json)
+    end
+  end
