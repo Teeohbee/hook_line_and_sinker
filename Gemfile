@@ -5,6 +5,7 @@ gem 'data_mapper'
 gem 'dm-postgres-adapter'
 gem 'httparty'
 gem 'sinatra'
+gem 'jbuilder'
 
 group :development, :test do
   gem 'capybara'

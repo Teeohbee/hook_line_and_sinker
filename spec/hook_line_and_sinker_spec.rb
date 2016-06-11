@@ -17,7 +17,7 @@ require 'spec_helper'
     it 'returns a successful status code and message when fields are valid' do
       post_json('/', good_email)
       expect(last_response.status).to eql(200)
-      expect(last_response.body).to eql('Webhook Data Parsed')
+      expect(last_response.body).to eql('Success! Webhook Data Parsed')
     end
 
     it 'returns a failing status code and message when fields are invalid or missing' do
@@ -29,7 +29,7 @@ require 'spec_helper'
     it 'returns a failing status code and message when no data is provided' do
       post_json('/', {})
       expect(last_response.status).to eql(400)
-      expect(last_response.body).to eql('No Data Provided')
+      expect(last_response.body).to eql('Unable to parse JSON')
     end
 
     it 'adds a record to the email database when successful' do

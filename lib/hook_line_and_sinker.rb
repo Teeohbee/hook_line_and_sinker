@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'tilt/erb'
 require 'date'
+require_relative 'stat_calculator.rb'
 require_relative '../data_mapper_setup.rb'
 
 require 'pry'
@@ -20,7 +21,7 @@ class HookLineAndSinker < Sinatra::Base
     @data = JSON.parse(request.body.read) rescue nil
     if @data.nil?
       status 400
-      body "No Data Provided"
+      body "Unable to parse JSON"
     else
       @email = Email.new  timestamp: @data['Timestamp'],
                           address: @data['Address'],
@@ -28,7 +29,7 @@ class HookLineAndSinker < Sinatra::Base
                           event: @data['Event']
       if @email.save
         status 200
-        body "Webhook Data Parsed"
+        body "Success! Webhook Data Parsed"
       else
         status 400
         body "Data failed validations"
